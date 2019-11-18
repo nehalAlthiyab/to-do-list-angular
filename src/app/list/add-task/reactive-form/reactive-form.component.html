@@ -1,0 +1,55 @@
+<p>reactive-form works!</p>
+<form [formGroup]="ToDoListForm" (ngSubmit)="onSubmit()">  
+        <div class="row">
+                <div class="col-xs-12">
+                    <button 
+                    type="submit"
+                    class="btn btn-success"
+                    [disabled]="!ToDoListForm.valid"
+                    >Save</button>
+                    <button 
+                    type="button"
+                    class="btn btn-danger" 
+                    (click)="onCancel()">cancel</button>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="task">Task</label>
+                        <textarea 
+                        type="text" 
+                        id="Work"
+                        class="form-control"
+                        rows="6"
+                        formControlName="Work">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="From">From</label>
+                                <input 
+                                type="date" 
+                                id="DateFrom"
+                                class="form-control"
+                                formControlName="DateFrom">
+                            </div>
+                        </div>
+                    </div>
+            <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="to">To</label>
+                            <input 
+                            type="date" 
+                            id="DateTo"
+                            class="form-control"
+                            formControlName="DateTo">
+                        </div>
+                    </div>
+                </div>
+                
+</form>

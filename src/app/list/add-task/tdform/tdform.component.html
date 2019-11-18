@@ -1,0 +1,61 @@
+<p>tdform works!</p>
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="row">
+                <div class="col-xs-12">
+                    <button 
+                    type="submit"
+                    class="btn btn-success"
+                    [disabled]="!f.valid"
+                    >Save</button>
+                    <button 
+                    type="button"
+                    class="btn btn-danger" 
+                    (click)="onCancel()">cancel</button>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="task">Task</label>
+                        <textarea 
+                        type="text" 
+                        id="Work"
+                        class="form-control"
+                        rows="6"
+                        name='Work'
+                        ngModel
+                        required>
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="From">From</label>
+                                <input 
+                                type="date" 
+                                id="DateFrom"
+                                class="form-control"
+                                name='DateFrom'
+                                ngModel
+                                required>
+                            </div>
+                        </div>
+                    </div>
+            <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label for="to">To</label>
+                            <input 
+                            type="date" 
+                            id="DateTo"
+                            class="form-control"
+                            name='DateTo'
+                            ngModel
+                            required>
+                        </div>
+                    </div>
+                </div>
+                
+</form>
