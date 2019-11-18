@@ -1,11 +1,11 @@
-<p>edit-list works!</p>
-
-<form>
+<p>reactive-form works!</p>
+<form [formGroup]="ToDoListForm" (ngSubmit)="onSubmit()">  
         <div class="row">
                 <div class="col-xs-12">
                     <button 
                     type="submit"
                     class="btn btn-success"
+                    [disabled]="!ToDoListForm.valid"
                     >Save</button>
                     <button 
                     type="button"
@@ -16,11 +16,14 @@
         <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input 
+                        <label for="task">Task</label>
+                        <textarea 
                         type="text" 
-                        id="name"
-                        class="form-control">
+                        id="Work"
+                        class="form-control"
+                        rows="6"
+                        formControlName="Work">
+                        </textarea>
                     </div>
                 </div>
             </div>
@@ -30,8 +33,9 @@
                                 <label for="From">From</label>
                                 <input 
                                 type="date" 
-                                id="DatrFrom"
-                                class="form-control">
+                                id="DateFrom"
+                                class="form-control"
+                                formControlName="DateFrom">
                             </div>
                         </div>
                     </div>
@@ -42,7 +46,8 @@
                             <input 
                             type="date" 
                             id="DateTo"
-                            class="form-control">
+                            class="form-control"
+                            formControlName="DateTo">
                         </div>
                     </div>
                 </div>

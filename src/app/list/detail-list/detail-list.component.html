@@ -1,7 +1,24 @@
 <div class="list-group">
         <ul class="list-group">
-            <div class="list-group-item" >
-        <p>Task: {{list.Work}}</p>
-        <h6>from: {{list.DateFrom}} || to: {{list.DateTo}}</h6></div>
+            <div class="list-group-item clearfix">
+            <div class="pull-left" >
+        <p class="list-group-item-header">Task: {{list.Work}}</p>
+        <h6 class="list-group-item-text">from: {{list.DateFrom}} || to: {{list.DateTo}}</h6></div>
+        <div class="pull-right">
+                <button
+                type="submit"
+                routerLinkActive="active"
+                class="btn btn-primary" 
+                (click)="onEditTask(index)"
+                >Edit</button>
+                <button 
+                [routerLink]="[index]" 
+                routerLinkActive="active"
+                class="btn btn-danger" 
+                type="submit"
+                (click)="onEditDelete(index)"
+                >Delete</button>
+        </div>
+    </div>
         </ul>
 </div>

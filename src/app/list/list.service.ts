@@ -22,5 +22,14 @@ export class ListService{
         this.DoListChanged.next(this.list.slice());
     }
 
+    getTask(index:number){
+        return this.list[index];
+    }
+
+
+    deleteTask(index:number){
+        this.list.splice(index,1);
+        this.DoListChanged.next(this.list.slice());
+      }
     constructor(){}
 }

@@ -14,7 +14,10 @@ const routes: Routes = [
   {path:'Detail-list',component:DetailListComponent},
   {path:'new',component:AddTaskComponent},
   {path:'TD',component:TDFormComponent},
-  {path:'Reactive',component:ReactiveFormComponent}]},
+  {path:'Reactive',component:ReactiveFormComponent},
+  {path:':id/edit',component:EditListComponent}
+  ]},
+  
   
 ];
 
