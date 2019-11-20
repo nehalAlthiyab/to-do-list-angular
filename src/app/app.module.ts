@@ -12,6 +12,7 @@ import { ListComponent } from './list/list.component';
 import { HeaderComponent } from './header/header.component';
 import { TDFormComponent } from './list/add-task/tdform/tdform.component';
 import { ReactiveFormComponent } from './list/add-task/reactive-form/reactive-form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,13 +24,15 @@ import { ReactiveFormComponent } from './list/add-task/reactive-form/reactive-fo
     ListComponent,
     HeaderComponent,
     TDFormComponent,
-    ReactiveFormComponent
+    ReactiveFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

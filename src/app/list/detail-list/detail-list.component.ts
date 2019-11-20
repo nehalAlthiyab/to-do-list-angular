@@ -23,7 +23,7 @@ export class DetailListComponent implements OnInit {
   }
 
   onEditTask(index:number){
-    this.router.navigate([index,'edit'],{relativeTo:this.route});
+    this.router.navigate(['','edit',index],{relativeTo:this.route});
   }
 
   onEditDelete(index:number){

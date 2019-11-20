@@ -7,13 +7,10 @@
         <div class="pull-right">
                 <button
                 type="submit"
-                routerLinkActive="active"
                 class="btn btn-primary" 
                 (click)="onEditTask(index)"
                 >Edit</button>
                 <button 
-                [routerLink]="[index]" 
-                routerLinkActive="active"
                 class="btn btn-danger" 
                 type="submit"
                 (click)="onEditDelete(index)"

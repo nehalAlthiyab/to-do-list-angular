@@ -15,11 +15,13 @@ export class ListService{
 
     getList(){
         return this.list.slice();
+        
     }
 
     addTask(task:DoList){
         this.list.push(task);
         this.DoListChanged.next(this.list.slice());
+        
     }
 
     getTask(index:number){
@@ -31,5 +33,17 @@ export class ListService{
         this.list.splice(index,1);
         this.DoListChanged.next(this.list.slice());
       }
-    constructor(){}
+
+      setList(list:DoList[]){
+        this.list=list;
+        this.DoListChanged.next(this.list.slice());
+      }
+
+
+      updateTask(index:number, newTask){
+        this.list[index]=newTask;
+        this.DoListChanged.next(this.list.slice());
+      }
+    constructor(
+    ){}
 }

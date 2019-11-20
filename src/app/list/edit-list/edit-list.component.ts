@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ListService } from '../list.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-list',
   templateUrl: './edit-list.component.html',
   styleUrls: ['./edit-list.component.css']
 })
-export class EditListComponent implements OnInit {
+export class EditListComponent implements OnInit,OnDestroy {
   id:number;
+  sub:Subscription
   ToDoListForm:FormGroup
   constructor(
     private ListService:ListService,
@@ -18,7 +20,7 @@ export class EditListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params
+  this.sub=this.route.params
 .subscribe(
   (params:Params)=>{
     this.id=+params['id'];
@@ -39,10 +41,21 @@ export class EditListComponent implements OnInit {
       'DateFrom':new FormControl(from,Validators.required),
       'DateTo':new FormControl(to,Validators.required)
     })
+
+    console.log(list);
   }
 
-  onCancel(){}
+  onCancel(){
+    this.router.navigate(['/'],{relativeTo:this.route});
+  }
 
-  onSubmit(){}
+  onSubmit(){
+    this.ListService.updateTask(this.id,this.ToDoListForm.value);
+    this.onCancel();
+  }
+
+  ngOnDestroy(){
+    this.sub.unsubscribe();
+  }
 
 }
