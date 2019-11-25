@@ -1,8 +1,8 @@
 export class DoList{
     constructor(
-        public Work:string,
-        public DateFrom:string,
-        public DateTo:string,
+        public work:string,
+        public dateFrom:Date,
+        public dateTo:Date,
         public completed:number
         ){}
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DoList } from '../do-list/do-list.model';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
-import { ListService } from '../list.service';
+import { ListService } from '../do-list/list.service';
 
 
 @Component({
@@ -19,7 +19,6 @@ export class DetailListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-   console.log(this.index);
   }
 
   onEditTask(index:number){

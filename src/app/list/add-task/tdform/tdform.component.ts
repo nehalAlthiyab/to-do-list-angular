@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DoList } from '../../do-list/do-list.model';
-import { ListService } from '../../list.service';
+import { ListService } from '../../do-list/list.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

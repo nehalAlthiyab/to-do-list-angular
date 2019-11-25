@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { ListService } from '../list.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ListService } from '../do-list/list.service';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { DoList } from '../do-list/do-list.model';
 
 @Component({
   selector: 'app-edit-list',
@@ -10,9 +11,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./edit-list.component.css']
 })
 export class EditListComponent implements OnInit,OnDestroy {
+  @ViewChild('f',{static:false}) slForm:NgForm;
   id:number;
-  sub:Subscription
-  ToDoListForm:FormGroup
+  sub:Subscription;
+  Task:string;
+     from:Date;
+     to:Date;
+     completed:number;
   constructor(
     private ListService:ListService,
     private route:ActivatedRoute,
@@ -27,22 +32,18 @@ export class EditListComponent implements OnInit,OnDestroy {
    }
  );
 
- let Task='';
-    let from='';
-    let to='';
+  
 
-    const list =this.ListService.getTask(this.id);
-    Task=list.Work;
-    from=list.DateFrom;
-    to=list.DateTo;
+    this.ListService.getTask(this.id).subscribe((task:DoList)=>{
+      console.log(task.work);
+      this.Task=task.work.toString();
+    this.from=task.dateFrom;
+    this.to=task.dateTo;
+    this.completed=task.completed;
+    });
+    
 
-    this.ToDoListForm=new FormGroup({
-      'Work':new FormControl(Task,Validators.required),
-      'DateFrom':new FormControl(from,Validators.required),
-      'DateTo':new FormControl(to,Validators.required)
-    })
-
-    console.log(list);
+    
   }
 
   onCancel(){
@@ -50,8 +51,9 @@ export class EditListComponent implements OnInit,OnDestroy {
   }
 
   onSubmit(){
-    this.ListService.updateTask(this.id,this.ToDoListForm.value);
-    this.onCancel();
+    const newTask=new DoList (this.Task,this.to,this.from,this.completed);
+    this.ListService.updateTask(this.id,newTask);
+    this.router.navigate(['/'],{relativeTo:this.route});
   }
 
   ngOnDestroy(){

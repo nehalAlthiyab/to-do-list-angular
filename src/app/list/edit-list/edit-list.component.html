@@ -1,11 +1,11 @@
 <p>reactive-form works!</p>
-<form [formGroup]="ToDoListForm" (ngSubmit)="onSubmit()">  
+<form (ngSubmit)="onSubmit()" #f="ngForm">  
         <div class="row">
                 <div class="col-md-4">
                     <button 
                     type="submit"
                     class="btn btn-success"
-                    [disabled]="!ToDoListForm.valid"
+                    [disabled]="!f.valid"
                     >Save</button>
                     <button 
                     type="button"
@@ -17,12 +17,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="task">Task</label>
-                        <textarea 
+                        <textarea
+                        name="Task" 
+                        [(ngModel)]="Task"
                         type="text" 
                         id="Work"
                         class="form-control"
                         rows="6"
-                        formControlName="Work">
+                        >
                         </textarea>
                     </div>
                 </div>
@@ -32,10 +34,12 @@
                             <div class="form-group">
                                 <label for="From">From</label>
                                 <input 
-                                type="date" 
+                                name="dateFrom"
+                                [(ngModel)]="from"
+                                type="datetime-local" 
                                 id="DateFrom"
                                 class="form-control"
-                                formControlName="DateFrom">
+                                >
                             </div>
                         </div>
                     </div>
@@ -44,10 +48,12 @@
                         <div class="form-group">
                             <label for="to">To</label>
                             <input 
-                            type="date" 
+                            name="dateTo"
+                            [(ngModel)]="to"
+                            type="datetime-local" 
                             id="DateTo"
                             class="form-control"
-                            formControlName="DateTo">
+                            >
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ListService } from '../../list.service';
+import { ListService } from '../../do-list/list.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
