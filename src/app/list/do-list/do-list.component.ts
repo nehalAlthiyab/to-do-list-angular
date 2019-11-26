@@ -1,9 +1,10 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { ListService } from './list.service';
 import { DoList } from './do-list.model';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-do-list',
@@ -12,6 +13,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class DoListComponent implements OnInit {
 list:DoList[];
+DoListChanged = new Subject<DoList[]>();
   private ListChangeSub:Subscription;
   public headers: HttpHeaders;
   readonly rootURL='https://localhost:44361/api';
@@ -25,17 +27,13 @@ list:DoList[];
   ngOnInit() {
    
  this.ListService.getToDoList().subscribe((list:DoList[])=>{
+   
     this.list=list;
   });
-// console.log(this.list);
- //this.ListChangeSub=this.ListService.DoListChanged
- ///  .subscribe((list:DoList[])=>{
- //     this.list=list;
- // });
   //console.log(this.list);
  
  
   }
-
+  
 
 }

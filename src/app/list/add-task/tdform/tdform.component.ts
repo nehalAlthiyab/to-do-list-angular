@@ -24,6 +24,7 @@ export class TDFormComponent implements OnInit {
     const newTask=new DoList (value.Work,value.DateFrom,value.DateTo,0);
     this.ListSarvice.addTask(newTask);
     this.slForm.reset();
+    this.router.navigate(['../'],{relativeTo:this.route});
   }
 
   onCancel(){

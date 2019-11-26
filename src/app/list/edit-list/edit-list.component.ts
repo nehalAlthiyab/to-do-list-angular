@@ -35,7 +35,6 @@ export class EditListComponent implements OnInit,OnDestroy {
   
 
     this.ListService.getTask(this.id).subscribe((task:DoList)=>{
-      console.log(task.work);
       this.Task=task.work.toString();
     this.from=task.dateFrom;
     this.to=task.dateTo;
@@ -50,8 +49,10 @@ export class EditListComponent implements OnInit,OnDestroy {
     this.router.navigate(['/'],{relativeTo:this.route});
   }
 
-  onSubmit(){
-    const newTask=new DoList (this.Task,this.to,this.from,this.completed);
+  onSubmit(form:NgForm){
+    const value=form.value;
+    const newTask=new DoList (value.Task,value.dateFrom,value.dateTo,value.completed);
+    newTask.setId(this.id);
     this.ListService.updateTask(this.id,newTask);
     this.router.navigate(['/'],{relativeTo:this.route});
   }

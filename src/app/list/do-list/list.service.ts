@@ -14,7 +14,7 @@ import {map, tap} from'rxjs/operators';
 export class ListService{
     private headers: HttpHeaders;
     readonly rootURL='https://localhost:44361/api';
-    DoListChanged = new Subject<DoList[]>();
+    
     date:Date=new Date(new Date().getDate());
     private list:DoList[];
     private task:DoList;
@@ -48,7 +48,9 @@ export class ListService{
     addTask(task:DoList){
       console.log(task);
       console.log(this.rootURL+'/toDoList',task);
-      this.http.post(this.rootURL+'/toDoList',task);
+      this.http.post(this.rootURL+'/toDoList',task).subscribe((data)=>{
+        console.log(data);
+      });
 
         //this.list.push(task);
         //console.log(task);
@@ -65,7 +67,9 @@ export class ListService{
 
     deleteTask(index:number){
       console.log(index);
-      this.http.delete(this.rootURL+'/toDoList/'+index);
+      this.http.delete(this.rootURL+'/toDoList/'+index).subscribe((data)=>{
+        console.log(data);
+      });
         //this.list.splice(index,1);
        // this.DoListChanged.next(this.list.slice());
       }
@@ -85,10 +89,12 @@ export class ListService{
 
     }
 
-      updateTask(index:number, newTask){
+      updateTask(index:number, newTask:DoList){
         console.log(newTask);
         console.log(this.rootURL+'/toDoList/'+index);
-        this.http.put<DoList>(this.rootURL+'/toDoList/'+index,newTask);
+        this.http.put<DoList>(this.rootURL+'/toDoList/'+index,newTask).subscribe((data)=>{
+          console.log(data);
+        });
         //this.list[index]=newTask;
         //this.DoListChanged.next(this.list.slice());
       }

@@ -3,7 +3,8 @@
             <div class="list-group-item clearfix">
             <div class="pull-left" >
         <p class="list-group-item-header">Task: {{list.work}}</p>
-        <h6 class="list-group-item-text">from: {{list.dateFrom}} || to: {{list.dateTo}}</h6></div>
+        <h6 class="list-group-item-text">from: {{list.dateFrom | date: "MM-dd-yyyy"}} || to: {{list.dateTo | date: "MM-dd-yyyy"}}</h6>
+    <h6 class="list-group-item-text">Status:{{status}}</h6></div>
         <div class="pull-right">
                 <button
                 type="submit"
@@ -15,6 +16,11 @@
                 type="submit"
                 (click)="onEditDelete(index)"
                 >Delete</button>
+                <button 
+                class="btn btn-success" 
+                type="submit"
+                (click)="onComplete(index)"
+                >Complete</button>
         </div>
     </div>
         </ul>
