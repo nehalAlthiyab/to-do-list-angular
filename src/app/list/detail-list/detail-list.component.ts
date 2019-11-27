@@ -62,13 +62,13 @@ to:string;
   onComplete(index:number){
     const ans = confirm('are you sure you complete this task');
    if(ans){
-    this.ListService.getTask(index).subscribe((task:DoList)=>{
-      const updateTask=new DoList (task.work,task.dateFrom,task.dateTo,1);
-      updateTask.setId(index);
-      console.log(updateTask);
-      this.ListService.updateTask(index,updateTask);
-      location.reload();
-    });
+     this.list.completed=1;
+      console.log(this.list);
+      this.ListService.updateTask(index,this.list);
+      this.router.navigate(['/'])
+    .then(() => {
+    window.location.reload();
+   });
    }
   }
   checkDate(date:Date) {
