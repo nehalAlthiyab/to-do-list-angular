@@ -29,12 +29,18 @@ ToDoListForm:FormGroup
   }
 
   onSubmit(){
-    this.ListService.addTask(this.ToDoListForm.value);
+    if(this.ToDoListForm.value.DateFrom>this.ToDoListForm.value.DateTo){
+      alert('the start date mast by before the end date ');
+    }
+    else{
+      this.ListService.addTask(this.ToDoListForm.value);
     this.ToDoListForm.reset();
     this.router.navigate(['/'])
     .then(() => {
       window.location.reload();
      });
+    }
+    
   }
 
   onCancel(){

@@ -56,7 +56,10 @@ to:string;
     const ans = confirm('are you sure you want to delete this task');
    if(ans){
     this.ListService.deleteTask(index);
-    location.reload();
+    this.router.navigate(['/'])
+    .then(() => {
+    window.location.reload();
+   });
    }
   }
   onComplete(index:number){

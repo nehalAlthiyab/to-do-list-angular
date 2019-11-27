@@ -21,6 +21,10 @@ export class TDFormComponent implements OnInit {
 
   onSubmit(form:NgForm){
     const value=form.value;
+    if(value.DateFrom>value.DateTo){
+      alert('the start date mast by before the end date ');
+    }
+    else{
     const newTask=new DoList (value.Work,value.DateFrom,value.DateTo,0);
     this.ListSarvice.addTask(newTask);
     this.slForm.reset();
@@ -28,6 +32,7 @@ export class TDFormComponent implements OnInit {
     .then(() => {
       window.location.reload();
      });
+    }
   }
 
   onCancel(){
