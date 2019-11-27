@@ -13,6 +13,7 @@ import { DatePipe } from '@angular/common';
 export class DetailListComponent implements OnInit {
 @Input() list:DoList;
 @Input() index:number;
+endTask:boolean=false;
 task:DoList;
 completed:number;
 status:string;
@@ -38,10 +39,12 @@ to:string;
         this.status="started";
       }}else{
         this.status="ended";
+        this.endTask=true;
       }
     }
     else{
       this.status="completed";
+      this.endTask=true;
     }
   }
 
@@ -53,7 +56,7 @@ to:string;
     const ans = confirm('are you sure you want to delete this task');
    if(ans){
     this.ListService.deleteTask(index);
-    this.router.navigate(['/']);
+    location.reload();
    }
   }
   onComplete(index:number){
@@ -64,9 +67,8 @@ to:string;
       updateTask.setId(index);
       console.log(updateTask);
       this.ListService.updateTask(index,updateTask);
+      location.reload();
     });
-    
-    this.router.navigate(['/']);
    }
   }
   checkDate(date:Date) {

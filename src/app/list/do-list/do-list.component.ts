@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 export class DoListComponent implements OnInit {
 list:DoList[];
 DoListChanged = new Subject<DoList[]>();
-  private ListChangeSub:Subscription;
+  private loudSub:Subscription;
   public headers: HttpHeaders;
   readonly rootURL='https://localhost:44361/api';
 
@@ -25,8 +25,9 @@ DoListChanged = new Subject<DoList[]>();
      }
 
   ngOnInit() {
-   
+  
  this.ListService.getToDoList().subscribe((list:DoList[])=>{
+   //location.reload();
    
     this.list=list;
   });

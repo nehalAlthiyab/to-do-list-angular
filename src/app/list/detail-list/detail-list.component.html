@@ -10,6 +10,7 @@
                 type="submit"
                 class="btn btn-primary" 
                 (click)="onEditTask(index)"
+                [disabled]="endTask===true"
                 >Edit</button>
                 <button 
                 class="btn btn-danger" 
@@ -20,6 +21,7 @@
                 class="btn btn-success" 
                 type="submit"
                 (click)="onComplete(index)"
+                [disabled]="endTask===true"
                 >Complete</button>
         </div>
     </div>

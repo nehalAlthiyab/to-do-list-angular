@@ -31,6 +31,10 @@ ToDoListForm:FormGroup
   onSubmit(){
     this.ListService.addTask(this.ToDoListForm.value);
     this.ToDoListForm.reset();
+    this.router.navigate(['/'])
+    .then(() => {
+      window.location.reload();
+     });
   }
 
   onCancel(){

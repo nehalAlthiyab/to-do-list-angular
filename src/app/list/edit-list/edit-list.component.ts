@@ -46,7 +46,7 @@ export class EditListComponent implements OnInit,OnDestroy {
   }
 
   onCancel(){
-    this.router.navigate(['/'],{relativeTo:this.route});
+    this.router.navigate(['/']);
   }
 
   onSubmit(form:NgForm){
@@ -54,7 +54,10 @@ export class EditListComponent implements OnInit,OnDestroy {
     const newTask=new DoList (value.Task,value.dateFrom,value.dateTo,value.completed);
     newTask.setId(this.id);
     this.ListService.updateTask(this.id,newTask);
-    this.router.navigate(['/'],{relativeTo:this.route});
+    this.router.navigate(['/'])
+    .then(() => {
+    window.location.reload();
+   });
   }
 
   ngOnDestroy(){

@@ -26,24 +26,7 @@ export class ListService{
          console.log(this.list);
       });;
       return this.list;
-
-
-     // return Observable.create(observer=>{
-     //   this.http.get(this.rootURL+'/ToDoList').pipe(map((list:DoList)=>{
-      //    this.task.Work=list.Work;
-      //    this.task.DateFrom=list.DateFrom;
-     //     this.task.DateTo=list.DateTo;
-      //    this.list.push(this.task);
-         
-          
-      //  }
-      //))
-    //})
-
-
-    
   }
-
 
     addTask(task:DoList){
       console.log(task);
