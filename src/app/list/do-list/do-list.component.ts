@@ -12,29 +12,31 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./do-list.component.css']
 })
 export class DoListComponent implements OnInit {
-list:DoList[];
-DoListChanged = new Subject<DoList[]>();
-  private loudSub:Subscription;
+  list: DoList[];
+  DoListChanged = new Subject<DoList[]>();
+  private loudSub: Subscription;
   public headers: HttpHeaders;
-  readonly rootURL='https://localhost:44361/api';
-
+  readonly rootURL = 'https://localhost:44361/api';
+  // list$: Observable<DoList[]>;
   constructor(
-    private ListService:ListService,
-    private http:HttpClient,) {
-      this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
-     }
+    private ListService: ListService,
+    private http: HttpClient, ) {
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+  }
 
   ngOnInit() {
-  
- this.ListService.getToDoList().subscribe((list:DoList[])=>{
-   //location.reload();
-   
-    this.list=list;
-  });
-  //console.log(this.list);
- 
- 
+    this.ListService.list$.subscribe(data => {
+      this.list = data;
+    });
+    // this.ListService.getToDoList().subscribe((list: DoList[]) => {
+    //   //location.reload();
+    //   //console.table(list);
+    //   this.list = list;
+    // });
+    //console.log(this.list);
+
+
   }
-  
+
 
 }

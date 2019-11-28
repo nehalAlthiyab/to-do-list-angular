@@ -37,7 +37,7 @@ ToDoListForm:FormGroup
     this.ToDoListForm.reset();
     this.router.navigate(['/'])
     .then(() => {
-      window.location.reload();
+      //window.location.reload();
      });
     }
     

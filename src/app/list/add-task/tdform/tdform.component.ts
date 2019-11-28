@@ -30,7 +30,7 @@ export class TDFormComponent implements OnInit {
     this.slForm.reset();
     this.router.navigate(['/'])
     .then(() => {
-      window.location.reload();
+      //window.location.reload();
      });
     }
   }

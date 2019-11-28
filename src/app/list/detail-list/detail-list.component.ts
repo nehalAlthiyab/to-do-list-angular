@@ -23,7 +23,7 @@ to:string;
   constructor(
     private route:ActivatedRoute,
     private router:Router,
-    private ListService:ListService
+    private listService:ListService
   ) { }
 
   ngOnInit() {
@@ -55,11 +55,13 @@ to:string;
   onEditDelete(index:number){
     const ans = confirm('are you sure you want to delete this task');
    if(ans){
-    this.ListService.deleteTask(index);
-    this.router.navigate(['/'])
-    .then(() => {
+    this.listService.deleteTask(index);
+    
+    //this.ListService.getToDoList();
+    //this.router.navigate(['/']);
+   /* .then(() => {
     window.location.reload();
-   });
+   });*/
    }
   }
   onComplete(index:number){
@@ -67,10 +69,10 @@ to:string;
    if(ans){
      this.list.completed=1;
       console.log(this.list);
-      this.ListService.updateTask(index,this.list);
+      this.listService.updateTask(index,this.list);
       this.router.navigate(['/'])
     .then(() => {
-    window.location.reload();
+    //window.location.reload();
    });
    }
   }
