@@ -15,7 +15,6 @@ import { ReactiveFormComponent } from './list/add-task/reactive-form/reactive-fo
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DoListTableComponent } from './list/do-list-table/do-list-table.component';
-import { AngularMaterialModule } from './list/do-list-table/angular-material.module';
 import { MatTableModule } from '@angular/material/table';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
