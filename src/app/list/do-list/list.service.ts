@@ -1,8 +1,8 @@
 import { DoList } from './do-list.model'
 import { Injectable } from '@angular/core';
-import { Subject, Observable, observable, BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 //import { DataStorageService } from './data-storage.service';
 
 
@@ -17,13 +17,14 @@ export class ListService {
 
 
 
-  private headers: HttpHeaders;
   readonly rootURL = 'https://localhost:44361/api';
 
   date: Date = new Date(new Date().getDate());
-  private list: DoList[];
-  private task: DoList;
-
+  endTask:boolean=false;
+  completed:number;
+  status:string;
+  from:string;
+  to:string;
 
   addTask(task: DoList) {
     console.log(task);
@@ -56,19 +57,45 @@ export class ListService {
     // this.DoListChanged.next(this.list.slice());
   }
 
-  setList(list: DoList[]) {
-    console.log(list);
-    this.list = list;
-    //console.table(this.list);
-    //this.DoListChanged.next(this.list.slice());
+  setStatus(task: DoList) {
+    
+    this.from= this.checkDate(task.dateFrom);
+    this.to= this.checkDate(task.dateTo);
+     if(task.completed===0){
+       if(this.to>new Date().toLocaleDateString()){
+         if(this.from>new Date().toLocaleDateString()){
+         task.status="not started";
+         //this.status="not started";
+       }
+       else{
+         task.status="started";
+         //this.status="started";
+       }}else{
+         task.status="ended";
+         //this.status="ended";
+         //this.endTask=true;
+       }
+     }
+     else{
+       task.status="completed";
+      // this.status="completed";
+       //this.endTask=true;
+     }
+     return task;
   }
 
 
   private todoListsubject = new Subject<DoList[]>();
   list$: Observable<DoList[]> = this.todoListsubject.asObservable();
+  private tasksubject = new Subject<DoList>();
+  task$: Observable<DoList> = this.tasksubject.asObservable();
   getToDoList() {
     return this.http.get<DoList[]>(this.rootURL + '/toDoList').subscribe(data => {
+      data.map((task:DoList)=>{
+      this.setStatus(task);
+      });
       this.todoListsubject.next(data);
+      
     });
 
 
@@ -84,11 +111,15 @@ export class ListService {
     //this.list[index]=newTask;
     //this.DoListChanged.next(this.list.slice());
   }
+
+  checkDate(date:Date) {
+    const dateSendingToServer = new DatePipe('en-US').transform(date, 'MM/dd/yyyy')
+    return dateSendingToServer;
+  }
   constructor(
     private http: HttpClient,
     //private dataStorageService:DataStorageService
 
   ) {
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 }

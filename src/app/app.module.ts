@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,12 @@ import { HeaderComponent } from './header/header.component';
 import { TDFormComponent } from './list/add-task/tdform/tdform.component';
 import { ReactiveFormComponent } from './list/add-task/reactive-form/reactive-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DoListTableComponent } from './list/do-list-table/do-list-table.component';
+import { AngularMaterialModule } from './list/do-list-table/angular-material.module';
+import { MatTableModule } from '@angular/material/table';
+import { CdkColumnDef } from '@angular/cdk/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -25,16 +31,23 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     TDFormComponent,
     ReactiveFormComponent,
+    DoListTableComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule
+    //AngularMaterialModule,
+    
     
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [CdkColumnDef],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
