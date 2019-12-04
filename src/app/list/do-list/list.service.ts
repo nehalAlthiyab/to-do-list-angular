@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { MatPaginator } from '@angular/material/paginator';
 //import { DataStorageService } from './data-storage.service';
 
 
@@ -61,26 +62,27 @@ export class ListService {
     
     this.from= this.checkDate(task.dateFrom);
     this.to= this.checkDate(task.dateTo);
-     if(task.completed===0){
-       if(this.to>new Date().toLocaleDateString()){
-         if(this.from>new Date().toLocaleDateString()){
-         task.status="not started";
-         //this.status="not started";
-       }
-       else{
-         task.status="started";
-         //this.status="started";
-       }}else{
-         task.status="ended";
-         //this.status="ended";
-         //this.endTask=true;
-       }
-     }
-     else{
-       task.status="completed";
-      // this.status="completed";
-       //this.endTask=true;
-     }
+    const date = this.checkDate(new Date()); 
+    console.log(this.from);
+    console.log(this.to);
+    console.log(date);
+    if(task.completed===0){
+      if(this.to>date){
+        if(this.from>date){
+        
+        task.status="not started";
+      }
+      else{
+        task.status="started";
+      }}else{
+        task.status="ended";
+        this.endTask=true;
+      }
+    }
+    else{
+      task.status="completed";
+      this.endTask=true;
+    }
      return task;
   }
 
@@ -102,6 +104,7 @@ export class ListService {
   }
 
   updateTask(index: number, newTask: DoList) {
+    
     console.log(newTask);
     console.log(this.rootURL + '/toDoList/' + index);
     this.http.put<DoList>(this.rootURL + '/toDoList/' + index, newTask).subscribe((data) => {

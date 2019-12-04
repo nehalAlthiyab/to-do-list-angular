@@ -1,40 +1,60 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { ListService } from '../do-list/list.service';
 import { DoList } from '../do-list/do-list.model';
-import { DatePipe } from '@angular/common';
-import { MatPaginator } from '@angular/material/paginator';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-do-list-table',
   templateUrl: './do-list-table.component.html',
   styleUrls: ['./do-list-table.component.css']
 })
-export class DoListTableComponent implements OnInit {
+export class DoListTableComponent  implements OnInit{
   list: DoList[];
   task:DoList;
+  pageIndex:number;
   @ViewChild(MatPaginator,{static:false}) paginator: MatPaginator;
+  pageSize: any;
+  isLastPage: boolean;
   constructor(
     private route:ActivatedRoute,
     private router:Router,
-    private listService: ListService) { }
+    private listService: ListService) {}
   displayedColumns: string[] = ['work', 'dateFrom', 'dateTo','status','action'];
-  dataSource:DoList[];
+  dataSource:MatTableDataSource<DoList>;
+
   ngOnInit() {
+    this.route.params
+.subscribe(
+  (params:Params)=>{
+    this.pageIndex=+params['id']-1;
+    this.pageSize=+params['pageSize'];
+   }
+ );
+ console.log(this.pageIndex);
+      console.log(this.pageSize);
     this.listService.getToDoList();
     this.listService.list$.subscribe(data => {
       this.list = data;
-      
+      this.dataSource=new MatTableDataSource<DoList>(this.list);
+      this.dataSource.paginator=this.paginator;
+      this.paginator.pageIndex=this.pageIndex;
+      this.paginator.pageSize=this.pageSize;
       console.table(this.list);
-       
-      this.dataSource=this.list;
+      console.log(this.pageIndex);
+      console.log(this.pageSize);
     });
-    
-    
-    
+      
     //console.table(this.list);
   }
-   
+  onPaginateChange(event:PageEvent){
+    this.pageIndex=event.pageIndex+1;
+    this.pageSize=event.pageSize;
+    this.router.navigate(['/list',this.pageIndex,this.pageSize]);
+    console.log(event.pageIndex);
+  }
+      
    onEdit(index:number){
      console.log(index);
      this.router.navigate(['','edit',index],{relativeTo:this.route});
