@@ -12,12 +12,18 @@ import { ListComponent } from './list/list.component';
 import { HeaderComponent } from './header/header.component';
 import { TDFormComponent } from './list/add-task/tdform/tdform.component';
 import { ReactiveFormComponent } from './list/add-task/reactive-form/reactive-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DoListTableComponent } from './list/do-list-table/do-list-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { RegistrationComponent } from './user/registration/registration.component';
+import { LoginComponent } from './user/login/login.component';
+import { ToastrModule } from 'ngx-toastr';
+import { UserService } from './shared/user.service';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +37,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     TDFormComponent,
     ReactiveFormComponent,
     DoListTableComponent,
+    RegistrationComponent,
+    LoginComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -40,12 +49,20 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     HttpClientModule,
     BrowserAnimationsModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ToastrModule.forRoot({
+      progressBar: true
+    }),
     //AngularMaterialModule,
     
     
   ],
-  providers: [CdkColumnDef],
+  providers: [CdkColumnDef,
+    UserService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

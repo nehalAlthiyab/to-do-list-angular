@@ -4,6 +4,7 @@ import { DoList } from '../do-list/do-list.model';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserService } from 'src/app/shared/user.service';
 
 @Component({
   selector: 'app-do-list-table',
@@ -20,11 +21,14 @@ export class DoListTableComponent  implements OnInit{
   constructor(
     private route:ActivatedRoute,
     private router:Router,
-    private listService: ListService) {}
+    private listService: ListService,
+    private userService:UserService) {}
   displayedColumns: string[] = ['work', 'dateFrom', 'dateTo','status','action'];
   dataSource:MatTableDataSource<DoList>;
 
   ngOnInit() {
+    this.userService.auth.next(true);
+    console.log(this.userService.auth);
     this.route.params
 .subscribe(
   (params:Params)=>{

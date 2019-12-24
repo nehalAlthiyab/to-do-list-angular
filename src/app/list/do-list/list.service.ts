@@ -18,7 +18,7 @@ export class ListService {
 
 
 
-  readonly rootURL = 'https://localhost:44361/api';
+  readonly rootURL = 'http://localhost:54277/api';
 
   date: Date = new Date(new Date().getDate());
   endTask:boolean=false;
@@ -29,8 +29,8 @@ export class ListService {
 
   addTask(task: DoList) {
     console.log(task);
-    console.log(this.rootURL + '/toDoList', task);
-    this.http.post(this.rootURL + '/toDoList', task).subscribe((data) => {
+    console.log(this.rootURL + '/ToDoList', task);
+    this.http.post(this.rootURL + '/ToDoList', task).subscribe((data) => {
       console.table(data);
       this.getToDoList();
     });
@@ -44,13 +44,13 @@ export class ListService {
 
   getTask(index: number) {
     console.log(index);
-    return this.http.get<DoList>(this.rootURL + '/toDoList/' + index);
+    return this.http.get<DoList>(this.rootURL + '/ToDoList/' + index);
   }
 
 
   deleteTask(index: number) {
     console.log(index);
-    this.http.delete(this.rootURL + '/toDoList/' + index).subscribe((data) => {
+    this.http.delete(this.rootURL + '/ToDoList/' + index).subscribe((data) => {
       console.log(data);
       this.getToDoList();
     });
@@ -92,7 +92,7 @@ export class ListService {
   private tasksubject = new Subject<DoList>();
   task$: Observable<DoList> = this.tasksubject.asObservable();
   getToDoList() {
-    return this.http.get<DoList[]>(this.rootURL + '/toDoList').subscribe(data => {
+    return this.http.get<DoList[]>(this.rootURL + '/ToDoList').subscribe(data => {
       data.map((task:DoList)=>{
       this.setStatus(task);
       });
@@ -106,8 +106,8 @@ export class ListService {
   updateTask(index: number, newTask: DoList) {
     
     console.log(newTask);
-    console.log(this.rootURL + '/toDoList/' + index);
-    this.http.put<DoList>(this.rootURL + '/toDoList/' + index, newTask).subscribe((data) => {
+    console.log(this.rootURL + '/ToDoList/' + index);
+    this.http.put<DoList>(this.rootURL + '/ToDoList/' + index, newTask).subscribe((data) => {
       console.log(data);
       this.getToDoList();
     });

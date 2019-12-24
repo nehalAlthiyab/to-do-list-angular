@@ -6,9 +6,12 @@
     
          <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a routerLink="/" routerLinkActive="active" >List</a></li>
-                <li><a routerLink="/TD" routerLinkActive="active" >Add Task TDForm</a></li>
-                <li><a routerLink="/Reactive" routerLinkActive="active" >Add Task ReactiveForm</a></li>
+                <li *ngIf="isAuth"><a routerLink="/" routerLinkActive="active" >List</a></li>
+                <li *ngIf="isAuth"><a routerLink="/TD" routerLinkActive="active" >Add Task TDForm</a></li>
+                <li *ngIf="isAuth"><a routerLink="/Reactive" routerLinkActive="active" >Add Task ReactiveForm</a></li>
+                <li *ngIf="isAuth"><a style="cursor: pointer;" (click)="onLogout()">logout</a></li>
+                <li *ngIf="!isAuth"><a routerLink="/user/login" routerLinkActive="active" >Sign In</a></li>
+                <li *ngIf="!isAuth"><a routerLink='/user/registration' routerLinkActive='active'>Sign Up</a></li>
             </ul>
         </div>
     </div>

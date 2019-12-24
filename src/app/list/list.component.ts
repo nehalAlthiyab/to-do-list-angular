@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { UserService } from '../shared/user.service';
 
 
 @Component({
@@ -13,10 +14,12 @@ export class ListComponent implements OnInit {
   constructor(
    private route:ActivatedRoute,
    private router:Router,
+   private userService:UserService
   
   ) { }
 
   ngOnInit() {
+    this.userService.auth.next(true);
       this.router.navigate(['/list',1,5]);
     
   }
